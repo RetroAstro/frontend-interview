@@ -1,49 +1,36 @@
-### 前端面试
+[Alien Zhou](https://github.com/alienzhou) 
 
-小程序业务流程
+[ConardLi](http://www.conardli.top/blog)
 
-小程序云开发
+[工业聚](https://www.zhihu.com/people/lucifier129/activities) 
 
-小程序原理
+[前端精读周刊](https://github.com/dt-fe/weekly)
 
-对 Serverless 的了解
+[yck - 前端进阶之道](https://yuchengkai.cn)
 
-浏览器工作原理
+[木易杨前端进阶](https://muyiy.cn)
 
-对 AST 了解程度 ( 编译原理 )
+[前端九部](https://www.yuque.com/fe9/basic)
 
-PWA 了解程度
+[冴羽博客](https://github.com/mqyqingfeng/Blog)
 
-移动端开发注意事项
+[33-js-concepts](https://github.com/stephentian/33-js-concepts)
 
-Vue / React 原理
+[33-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code)
 
-Webpack / Babel 原理
+[webpack box](https://github.com/luoxue-victor/webpack-box) 
 
-取数 ( Suspense / Concurrent Mode )
+[掘金小册](https://juejin.im/books)
 
-状态管理 ( Redux / Vuex / Hooks / unstated / unstated-next )
+[JavaScript 是如何工作的](https://github.com/Troland/how-javascript-works)
 
-身份鉴权 ( cookie / session / jwt )
+[Node.js 开发指南](https://github.com/Q-Angelo/Nodejs-Roadmap)
 
-前端性能优化
+[Vue 技术揭秘](https://ustbhuangyi.github.io/vue-analysis) 
 
-前端监控
+极客时间
 
-JavaScript 手写各种 API 
+* 数据结构与算法
+* 设计模式
+* 浏览器工作原理与实践
 
-模块化编程、异步编程
-
-举例 OOP、AOP、FP 编程
-
-解释 MVP、MVC、MVVM 异同
-
-TypeScript 了解程度
-
-设计模式 / 数据结构与算法
-
-单元测试 / 功能测试 / 自动化测试 / TDD / BDD
-
-代码重构
-
-Node.js
