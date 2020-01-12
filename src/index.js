@@ -1,4 +1,4 @@
-Function.prototype.mycall1 = function (context) {
+Function.prototype.myCall1 = function (context) {
   let temp = context || window
   temp.fn = this
   let args = []
@@ -10,7 +10,7 @@ Function.prototype.mycall1 = function (context) {
   return res
 }
 
-Function.prototype.mycall2 = function (context, ...args) {
+Function.prototype.myCall2 = function (context, ...args) {
   let temp = context || window
   temp.fn = this
   let res = temp.fn(...args)
@@ -18,7 +18,7 @@ Function.prototype.mycall2 = function (context, ...args) {
   return res
 }
 
-Function.prototype.myapply = function (context, arr = []) {
+Function.prototype.myApply = function (context, arr = []) {
   let temp = context || window
   temp.fn = this
   let res = temp.fn(...arr)
@@ -26,7 +26,7 @@ Function.prototype.myapply = function (context, arr = []) {
   return res
 }
 
-Function.prototype.mybind = function (context, ...args1) {
+Function.prototype.myBind = function (context, ...args1) {
   let temp = this
   return function(...args2) {
     return temp.call(context, ...args1, ...args2)
@@ -39,3 +39,12 @@ function myNew(fn, ...args) {
   let res = fn.call(obj, ...args)
   return typeof res == 'object' ? res : obj
 }
+
+// 类数组转数组
+
+let arrayLike = { 0: 'name', 1: 'age', 2: 'sex', length: 3 }
+
+Array.prototype.slice.call(arrayLike) // ['name', 'age', 'sex'] 
+
+Array.from(arrayLike) // ['name', 'age', 'sex'] 
+
