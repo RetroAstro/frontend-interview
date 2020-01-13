@@ -41,7 +41,6 @@ function myNew(fn, ...args) {
 }
 
 // 类数组转数组
-
 let arrayLike = { 0: 'name', 1: 'age', 2: 'sex', length: 3 }
 
 Array.prototype.slice.call(arrayLike) // ['name', 'age', 'sex'] 
@@ -49,7 +48,6 @@ Array.prototype.slice.call(arrayLike) // ['name', 'age', 'sex']
 Array.from(arrayLike) // ['name', 'age', 'sex'] 
 
 // 组合继承
-
 function Parent (name) {
   this.name = name
   this.colors = ['red', 'blue', 'green']
@@ -82,7 +80,6 @@ console.log(child2.age) // 20
 console.log(child2.colors) // ["red", "blue", "green"]
 
 // 模拟实现 Object.create
-
 function createObj(o) {
   function F(){}
   F.prototype = o
@@ -90,7 +87,6 @@ function createObj(o) {
 }
 
 // 寄生组合式继承
-
 function object(o) {
   function F() {}
   F.prototype = o
@@ -108,4 +104,6 @@ prototype(Child, Parent)
 
 // 也可以直接使用原生 JS 方法
 Object.setPrototypeOf(Child.prototype, Parent.prototype)
+
+
 
