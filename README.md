@@ -1,3 +1,5 @@
+**复习资料**
+
 [Alien Zhou](https://github.com/alienzhou) 
 
 [ConardLi](http://www.conardli.top/blog)
@@ -33,4 +35,38 @@
 * 数据结构与算法
 * 设计模式
 * 浏览器工作原理与实践
+
+**简历面试**
+
+小程序云开发 / Serverless
+
+Babel / Webpack 原理，如何编写插件，详解 AST ，编译原理
+
+chrome 调试技巧，V8 引擎 ...
+
+PWA 相关生态及知识点
+
+项目细节、难点介绍
+
+前后端接口联调 / 鉴权机制 / 安全
+
+前端性能优化
+
+Vue / React 框架原理，前端 MV* 原理
+
+状态管理 redux, vuex, unstated, hooks
+
+小程序业务流程，小程序原理
+
+TypeScript 复杂类型 / 静态检查编译原理
+
+模块化编程、异步编程详解，事件机制（浏览器 / Node.js），手写代码
+
+举例 OOP（面向对象，SOLID 原则），AOP（面向切面，redux / koa / decorator / ioc / di），FP（compose / curry / monad / functor ...）
+
+设计模式 / 数据结构与算法
+
+单元测试 / 重构技巧
+
+Git 操作 / 工作流 / 原理
 
