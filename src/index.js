@@ -105,5 +105,48 @@ prototype(Child, Parent)
 // 也可以直接使用原生 JS 方法
 Object.setPrototypeOf(Child.prototype, Parent.prototype)
 
+// 函数防抖
+function debounce(func, wait) {
+  let timeout
+  return function () {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      func.apply(this, arguments)
+    }, wait)
+  }
+}
 
+// 函数节流
+
+// 1. 使用时间戳
+function throttle(func, wait) {
+  let prev = 0
+  return function () {
+    let now = +new Date()
+    if (now - prev > wait) {
+      func.apply(this, arguments)
+      prev = now
+    }
+  }
+}
+
+// 2. 使用 setTimeout
+function throttle(func, wait) {
+  let timeout
+  return function () {
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        timeout = null
+        func.apply(this, arguments)
+      }, wait)
+    }
+  }
+}
+
+
+// 数组去重
+// 深浅拷贝
+// 数组扁平化
+// 函数柯里化
+// 函数组合
 
