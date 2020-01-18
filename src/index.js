@@ -193,8 +193,8 @@ function deepClone(obj, hash = new WeakMap()) {
   if (hash.has(obj)) {
     return hash.get(obj)
   }
-  let res = obj instanceof Array ? [] : {}
   hash.set(obj, null)
+  let res = obj instanceof Array ? [] : {}
   for (let key in obj) {
     if (obj.hasOwnProperty(key)) {
       if (isObject(obj[key])) {
