@@ -1,3 +1,4 @@
+// 链表遍历算法 
 class Node {
   constructor(instance) {
     this.instance = instance

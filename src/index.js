@@ -1,3 +1,4 @@
+// 手写 call
 Function.prototype.myCall1 = function (context) {
   let temp = context || window
   temp.fn = this
@@ -18,6 +19,7 @@ Function.prototype.myCall2 = function (context, ...args) {
   return res
 }
 
+// 手写 apply
 Function.prototype.myApply = function (context, arr = []) {
   let temp = context || window
   temp.fn = this
@@ -26,6 +28,7 @@ Function.prototype.myApply = function (context, arr = []) {
   return res
 }
 
+// 手写 bind
 Function.prototype.myBind = function (context, ...args1) {
   let temp = this
   return function(...args2) {
@@ -33,6 +36,7 @@ Function.prototype.myBind = function (context, ...args1) {
   }
 }
 
+// 手写 new
 function myNew(fn, ...args) {
   let obj = {}
   Object.setPrototypeOf(obj, fn.prototype)
@@ -143,9 +147,105 @@ function throttle(func, wait) {
   }
 }
 
-
 // 数组去重
-// 深浅拷贝
+
+// ES5
+function unique(array) {
+  let res = []
+  for (let item of array) {
+    if (res.indexOf(item) == -1) {
+      res.push(item)
+    }
+  }
+  return res
+}
+
+// ES6
+function unique(array) {
+  return [...new Set(array)]
+}
+
+function isObject(obj) {
+  return typeof obj == 'object' && obj != null
+}
+
+// 浅拷贝
+function shallowClone(obj) {
+  if (!isObject(obj)) {
+    return null
+  }
+  let res = obj instanceof Array ? [] : {}
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      res[key] = obj[key]
+    }
+  }
+  return res
+}
+
+// 深拷贝 (只拷贝对象和数组 / 破解循环引用)
+
+// 递归版
+function deepClone(obj, hash = new WeakMap()) {
+  if (!isObject(obj)) {
+    return null
+  }
+  if (hash.has(obj)) {
+    return hash.get(obj)
+  }
+  let res = obj instanceof Array ? [] : {}
+  hash.set(obj, null)
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      if (isObject(obj[key])) {
+        res[key] = deepClone(obj[key], hash)
+      } else {
+        res[key] = obj[key]
+      }
+    }
+  }
+  return res
+}
+
+// 迭代版
+function deepClone(obj) {
+  if (!isObject(obj)) {
+    return null
+  }
+
+  let res = obj instanceof Array ? [] : {}
+  let stack = [{ parent: res, key: null, data: obj }]
+  let hash = new WeakMap()
+
+  while (stack.length) {
+    let { parent, key, data } = stack.pop()
+    let temp = parent
+    if (key != null) {
+      parent[key] = data instanceof Array ? [] : {}
+      temp = parent[key]
+    }
+    if (hash.has(data)) {
+      continue
+    }
+    hash.set(data, null)
+    for (let k in data) {
+      if (data.hasOwnProperty(k)) {
+        if (isObject(data[k])) {
+          stack.push({
+            parent: temp,
+            key: k,
+            data: data[k]
+          })
+        } else {
+          temp[k] = data[k] 
+        }
+      }
+    }
+  }
+
+  return res
+}
+
 // 数组扁平化
 // 函数柯里化
 // 函数组合
