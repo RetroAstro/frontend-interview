@@ -247,6 +247,21 @@ function deepClone(obj) {
 }
 
 // 数组扁平化
+function flatten(array) {
+  let res = []
+  let stack = [array]
+  while (stack.length) {
+    let temp = stack.pop()
+    for (let item of temp) {
+      if (Array.isArray(item)) {
+        stack.unshift(item)
+      } else {
+        res.push(item)
+      }
+    }
+  }
+  return res
+}
 
 // 函数柯里化
 // 函数组合
