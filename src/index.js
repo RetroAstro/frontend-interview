@@ -264,5 +264,22 @@ function flatten(array) {
 }
 
 // 函数柯里化
+function curry(fn) {
+  let len = fn.length
+  return f()
+  
+  function f(args) {
+    return function() {
+      let arr = args || []
+      arr.push(...arguments)
+      if (arr.length < len) {
+        return f(arr)
+      } else {
+        return fn.apply(this, arr)
+      }
+    }
+  }
+}
+
 // 函数组合
 
