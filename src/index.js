@@ -282,4 +282,16 @@ function curry(fn) {
 }
 
 // 函数组合
+function compose(...funcs) {
+  return funcs.reduce((a, b) => (...args) => a(b(...args)))
+}
+
+// 洗牌算法
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let random = Math.floor(Math.random() * (i + 1))
+    [array[random], array[i]] = [array[i], array[random]]
+  }
+  return array
+}
 
