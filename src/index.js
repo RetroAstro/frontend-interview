@@ -295,3 +295,4 @@ function shuffle(array) {
   return array
 }
 
+// 手写 promise
