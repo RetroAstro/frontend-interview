@@ -295,4 +295,6 @@ function shuffle(array) {
   return array
 }
 
+// monad
+// functor
 // 手写 promise
