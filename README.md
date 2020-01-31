@@ -12,6 +12,12 @@
 
 [木易杨前端进阶](https://muyiy.cn)
 
+[寻找海蓝 96](https://juejin.im/user/58d8cd0644d9040069433edb/posts)
+
+[荒山](https://juejin.im/user/5762733b2e958a00696163ea/posts)
+
+[chenhongdong](https://juejin.im/user/585b9ec961ff4b0063e76dbe/posts)
+
 [前端九部](https://www.yuque.com/fe9/basic)
 
 [冴羽博客](https://github.com/mqyqingfeng/Blog)
