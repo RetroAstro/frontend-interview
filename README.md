@@ -8,6 +8,8 @@
 
 [大深海](https://github.com/chenshenhai)
 
+[砖家](https://github.com/brickspert/blog)
+
 [前端精读周刊](https://github.com/dt-fe/weekly)
 
 [yck - 前端进阶之道](https://yuchengkai.cn)
@@ -19,6 +21,8 @@
 [荒山](https://juejin.im/user/5762733b2e958a00696163ea/posts)
 
 [chenhongdong](https://juejin.im/user/585b9ec961ff4b0063e76dbe/posts)
+
+[姜小抖](https://juejin.im/user/5c137c9de51d4545ae49595b/posts)
 
 [前端九部](https://www.yuque.com/fe9/basic)
 
