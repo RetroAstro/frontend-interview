@@ -256,12 +256,12 @@ function deepClone(obj) {
 // 数组扁平化
 function flatten(array) {
   let res = []
-  let stack = [array]
-  while (stack.length) {
-    let temp = stack.pop()
+  let queue = [array]
+  while (queue.length) {
+    let temp = queue.pop()
     for (let item of temp) {
       if (Array.isArray(item)) {
-        stack.unshift(item)
+        queue.unshift(item)
       } else {
         res.push(item)
       }
@@ -302,8 +302,72 @@ function shuffle(array) {
   return array
 }
 
+// 二叉树的遍历 (非递归版)
+
+// 前序遍历
+function prevOrder(root) {
+  let res = []
+  let stack = [root]
+
+  while (stack.length) {
+    let node = stack.pop()
+    res.push(node.val)
+    // 先入栈的元素后输出 
+    if (node.right) {
+      stack.push(node.right)
+    }
+    if (node.left) {
+      stack.push(node.left)
+    }
+  }
+
+  return res
+}
+
+// 中序遍历
+function inOrder(root) {
+  let res = []
+  let stack = []
+  let node = root
+
+  while (stack.length || node) {
+    if (node) {
+      stack.push(node)
+      node = node.left
+    } else {
+      node = stack.pop()
+      res.push(node.val)
+      node = node.right
+    }
+  }
+
+  return res
+}
+
+// 后序遍历
+function postOrder(root) {
+  let res = []
+  let stack = [root]
+
+  while (stack.length) {
+    let node = stack.pop()
+    res.push(node.val)
+    // 先入栈的元素后输出
+    if (node.left) {
+      stack.push(node.left)
+    }
+    if (node.right) {
+      stack.push(node.right)
+    }
+  }
+  
+  return res.reverse()
+}
+
+// 手写 event emitter
+// 手写 promise.all / promise.race
+// 手写 promise
+// 手写 koa-compose
+// 实现 MVVM 双向数据绑定 (Proxy / defineProperty)
 // monad
 // functor
-// 手写 event emitter
-// 手写 promise
-// 实现 MVVM 双向数据绑定 (Proxy / defineProperty)
