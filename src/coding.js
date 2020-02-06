@@ -44,6 +44,13 @@ function myNew(fn, ...args) {
   return typeof res == 'object' ? res : obj
 }
 
+// 手写 instanceof
+function instanceOf(left, right) {
+  if (typeof left == 'object' && typeof right == 'function') {
+    return right.prototype.isPrototypeOf(left)
+  }
+}
+
 // 类数组转数组
 let arrayLike = { 0: 'name', 1: 'age', 2: 'sex', length: 3 }
 
