@@ -364,8 +364,72 @@ function postOrder(root) {
   return res.reverse()
 }
 
-// 手写 event emitter
-// 手写 promise.all / promise.race
+// 手写 EventEmitter
+class EventEmitter {
+  constructor() {
+    this.events = {}
+  }
+
+  on(type, handler) {
+    if (!this.events[type]) {
+      this.events[type] = []
+    }
+    this.events[type].push(handler)
+  }
+
+  once(type, handler) {
+    let self = this
+    function fn() {
+      handler.apply(null, arguments)
+      self.off(type, fn)
+    }
+    this.on(type, fn)
+  }
+
+  off(type, handler) {
+    if (this.events[type]) {
+      let index = this.events[type].indexOf(handler)
+      if (index != -1) {
+        this.events[type].splice(index, 1)
+      }
+    }
+  }
+
+  emit(type, data) {
+    if (this.events[type]) {
+      this.events[type].forEach(handler => handler(data))
+    }
+  }
+}
+
+// 手写 promise.all
+Promise._all = promises => {
+  let { length } = promises
+  let count = 0
+  let res = []
+
+  return new Promise((resolve, reject) => {
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then(item => {
+          res[index] = item
+          count++
+          if (count == length) {
+            resolve(res)
+          }
+        })
+        .catch(err => reject(err))
+    })
+  })
+}
+
+// 手写 promise.race
+Promise._race = promises => new Promise((resolve, reject) => {
+  promises.forEach(promise => {
+    Promise.resolve(promise).then(resolve, reject)
+  })
+})
+
 // 手写 promise
 // 手写 koa-compose
 // 实现 MVVM 双向数据绑定 (Proxy / defineProperty)
