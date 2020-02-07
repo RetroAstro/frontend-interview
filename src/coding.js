@@ -460,7 +460,5 @@ Promise.prototype.finally = function (callback) {
   )
 }
 
-// 手写 promise
-// 实现 MVVM 双向数据绑定 (Proxy / defineProperty)
 // monad
 // functor
