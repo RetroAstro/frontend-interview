@@ -430,6 +430,15 @@ Promise._race = promises => new Promise((resolve, reject) => {
   })
 })
 
+// 手写 promise.finally
+Promise.prototype.finally = function (callback) {
+  return this.then(
+    res => Promise.resolve(callback()).then(() => res),
+    err => Promise.resolve(callback()).then(() => { throw err })
+  )
+}
+
+
 // 手写 promise
 // 手写 koa-compose
 // 实现 MVVM 双向数据绑定 (Proxy / defineProperty)
