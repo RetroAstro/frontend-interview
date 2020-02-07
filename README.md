@@ -68,7 +68,7 @@ PWA 相关生态及知识点
 
 Vue / React 框架原理，前端 MV* 原理
 
-状态管理 redux, vuex, unstated, hooks
+状态管理 redux, vuex, unstated, hooks 原理
 
 小程序业务流程，小程序原理
 

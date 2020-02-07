@@ -402,6 +402,28 @@ class EventEmitter {
   }
 }
 
+// 手写 koa-compose
+function compose(middlewares) {
+  return function (context) {
+    let i = -1
+    return dispatch()
+
+    function dispatch() {
+      i++
+      if (i < middlewares.length) {
+        let fn = middlewares[i]
+        try {
+          return Promise.resolve(fn(context, dispatch))
+        } catch (err) {
+          return Promise.reject(err)
+        }
+      } else {
+        return Promise.resolve()
+      }
+    }
+  }
+}
+
 // 手写 promise.all
 Promise._all = promises => {
   let { length } = promises
@@ -438,9 +460,7 @@ Promise.prototype.finally = function (callback) {
   )
 }
 
-
 // 手写 promise
-// 手写 koa-compose
 // 实现 MVVM 双向数据绑定 (Proxy / defineProperty)
 // monad
 // functor
