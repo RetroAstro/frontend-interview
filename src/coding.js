@@ -424,7 +424,7 @@ function compose(middlewares) {
   }
 }
 
-// 手写 promise.all
+// 手写 Promise.all
 Promise._all = promises => {
   let { length } = promises
   let count = 0
@@ -445,14 +445,14 @@ Promise._all = promises => {
   })
 }
 
-// 手写 promise.race
+// 手写 Promise.race
 Promise._race = promises => new Promise((resolve, reject) => {
   promises.forEach(promise => {
     Promise.resolve(promise).then(resolve, reject)
   })
 })
 
-// 手写 promise.finally
+// 手写 Promise.finally
 Promise.prototype.finally = function (callback) {
   return this.then(
     res => Promise.resolve(callback()).then(() => res),
