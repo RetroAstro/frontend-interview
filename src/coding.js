@@ -254,6 +254,21 @@ function deepClone(obj) {
 }
 
 // 数组扁平化
+
+// 递归版
+function flatten(array) {
+  let res = []
+  for (let item of array) {
+    if (Array.isArray(item)) {
+      res = res.concat(flatten(item))
+    } else {
+      res.push(item)
+    }
+  }
+  return res
+}
+
+// 迭代版
 function flatten(array) {
   let res = []
   let queue = [array]
