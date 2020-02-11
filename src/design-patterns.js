@@ -1,7 +1,7 @@
 // SOLID 原则 (单一职责 / 开放封闭 / 里氏替换 / 接口隔离 / 依赖反转)
 
 // 简单工厂模式
-function User(name , age, career, work) {
+function User(name, age, career, work) {
   this.name = name
   this.age = age
   this.career = career 
@@ -13,15 +13,15 @@ function Factory(name, age, career) {
 
   switch (career) {
       case 'coder':
-          work =  ['写代码','写系分', '修Bug'] 
+          work = ['写代码', '写系分', '修Bug'] 
           break
       case 'product manager':
           work = ['订会议室', '写PRD', '催更']
           break
       case 'boss':
           work = ['喝茶', '看报', '见客户']
-      case 'xxx':
-          // 其它工种的职责分配...
+      default:
+          throw Error('未匹配')
   }
 
   return new User(name, age, career, work)
@@ -29,36 +29,29 @@ function Factory(name, age, career) {
 
 // 抽象工厂模式
 class MobilePhoneFactory {
-  // 提供操作系统的接口
   createOS() {
-      throw new Error("抽象工厂方法不允许直接调用，你需要将我重写！")
+      throw new Error('抽象工厂方法不允许直接调用，你需要将我重写！')
   }
-  // 提供硬件的接口
   createHardWare() {
-      throw new Error("抽象工厂方法不允许直接调用，你需要将我重写！")
+      throw new Error('抽象工厂方法不允许直接调用，你需要将我重写！')
   }
 }
 
-// 具体工厂继承自抽象工厂
 class FakeStarFactory extends MobilePhoneFactory {
   createOS() {
-      // 提供安卓系统实例
       return new AndroidOS()
   }
   createHardWare() {
-      // 提供高通硬件实例
       return new QualcommHardWare()
   }
 }
 
-// 定义操作系统这类产品的抽象产品类
 class OS {
   controlHardWare() {
       throw new Error('抽象产品方法不允许直接调用，你需要将我重写！')
   }
 }
 
-// 定义具体操作系统的具体产品类
 class AndroidOS extends OS {
   controlHardWare() {
       console.log('我会用安卓的方式去操作硬件')
@@ -71,15 +64,12 @@ class AppleOS extends OS {
   }
 }
 
-// 定义手机硬件这类产品的抽象产品类
 class HardWare {
-  // 手机硬件的共性方法，这里提取了“根据命令运转”这个共性
   operateByOrder() {
       throw new Error('抽象产品方法不允许直接调用，你需要将我重写！')
   }
 }
 
-// 定义具体硬件的具体产品类
 class QualcommHardWare extends HardWare {
   operateByOrder() {
       console.log('我会用高通的方式去运转')
@@ -92,29 +82,22 @@ class MiWare extends HardWare {
   }
 }
 
-// 这是我的手机
 const myPhone = new FakeStarFactory()
-// 让它拥有操作系统
 const myOS = myPhone.createOS()
-// 让它拥有硬件
 const myHardWare = myPhone.createHardWare()
-// 启动操作系统(输出‘我会用安卓的方式去操作硬件’)
+
 myOS.controlHardWare()
-// 唤醒硬件(输出‘我会用高通的方式去运转’)
 myHardWare.operateByOrder()
 
-// 单例模式
+// 单例模式 (全局状态管理 Store)
 class Singleton {
   show() {
       console.log('我是一个单例对象')
   }
   static getInstance() {
-      // 判断是否已经new过1个实例
       if (!Singleton.instance) {
-          // 若这个唯一的实例不存在，那么先创建它
           Singleton.instance = new Singleton()
       }
-      // 如果这个唯一的实例已经存在，则直接返回
       return Singleton.instance
   }
 }
@@ -125,7 +108,7 @@ function Singleton(name) {
 
 Singleton.getInstance = (function() {
   let instance = null
-  return function(name) {
+  return function (name) {
     if (!instance) {
       instance = new Singleton(name)
     }
@@ -133,52 +116,248 @@ Singleton.getInstance = (function() {
   }
 })()
 
-// 装饰器模式 
+// 装饰器模式 (decorator / mixin / hof / hoc / redux / koa-compose)
+function funcDecorator(target, name, descriptor) {
+  let method = descriptor.value
 
-// 定义打开按钮
-class OpenButton {
-  // 点击后展示弹框（旧逻辑）
+  descriptor.value = function () {
+    console.log('我是 func 的装饰器逻辑')
+    return method.apply(this, arguments)
+  }
+
+  return descriptor
+}
+
+class Button {
+  @funcDecorator
   onClick() {
-    const modal = new Modal()
-    modal.style.display = 'block'
+    console.log('我是 func 的原有逻辑')
   }
 }
 
-// 定义按钮对应的装饰器
-class Decorator {
-  // 将按钮实例传入
-  constructor(open_button) {
-      this.open_button = open_button
+// 适配器模式 (axios)
+function ajax(type, url, data, success, failed) {
+  let xhr = new XMLHttpRequest()
+  let method = type.toUpperCase()
+
+  if (method == 'GET') {
+    xhr.open('GET', url + '?' + data, true)
+    xhr.send()
+  } else if (method == 'POST') {
+    xhr.open('POST', url, true)
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded')
+    xhr.send(data)
   }
-  
-  onClick() {
-      this.open_button.onClick()
-      // “包装”了一层新逻辑
-      this.changeButtonStatus()
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 304)) {
+      success(xhr.responseText)
+    }
   }
-  
-  changeButtonStatus() {
-      this.changeButtonText()
-      this.disableButton()
-  }
-  
-  disableButton() {
-      const btn =  document.getElementById('open')
-      btn.setAttribute("disabled", true)
-  }
-  
-  changeButtonText() {
-      const btn = document.getElementById('open')
-      btn.innerText = '快去登录'
+
+  xhr.onerror = function () {
+    failed(xhr.status)
   }
 }
 
-const openButton = new OpenButton()
-const decorator = new Decorator(openButton)
+class HttpUtils {
+  static get(url) {
+    return new Promise((resolve, reject) => {
+      fetch(url)
+        .then(res => res.json())
+        .then(resolve)
+        .catch(reject)
+    })
+  }
 
-document.getElementById('open').addEventListener('click', function() {
-  // openButton.onClick()
-  // 此处可以分别尝试两个实例的onClick方法，验证装饰器是否生效
-  decorator.onClick()
-})
+  static post(url, data) {
+    return new Promise((resolve, reject) => {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: data
+      })
+        .then(res => res.json())
+        .then(resolve)
+        .catch(reject)
+    })
+  }
+}
+
+async function ajaxAdapter(type, url, data, success, failed) {
+  let method = type.toUpperCase()
+  let res = null
+
+  try {
+    if (method == 'GET') {
+      res = await HttpUtils.get(url)
+    } else if (method == 'POST') {
+      res = await HttpUtils.post(url, data)
+    }
+    if (res && res.statusCode == 1) {
+      success(res)
+    } else {
+      failed(res.statusCode)
+    }
+  } catch (err) {
+    failed(err.statusCode)
+  }
+}
+
+async function ajax(type, url, data, success, failed) {
+  await ajaxAdapter(type, url, data, success, failed)
+}
+
+// 代理模式
+class PreloadImage {
+  constructor(imgNode) {
+    this.imgNode = imgNode
+  }
+
+  setSrc(imgUrl) {
+    this.imgNode.src = imgUrl
+  }
+}
+
+class ProxyImage {
+  static LOADING_URL = 'xxx.png'
+
+  constructor(targetImage) {
+    this.targetImage = targetImage
+  }
+
+  setSrc(targetUrl) {
+    this.targetImage.setSrc(LOADING_URL)
+
+    let virtualImage = new Image()
+
+    virtualImage.src = targetUrl
+
+    virtualImage.onload = () => {
+      this.targetImage.setSrc(targetUrl)
+    }
+  }
+}
+
+// 策略模式
+let priceProcessor = {
+  pre(originPrice) {
+    if (originPrice >= 100) {
+      return originPrice - 20
+    }
+    return originPrice * 0.9
+  },
+  onSale(originPrice) {
+    if (originPrice >= 100) {
+      return originPrice - 30
+    }
+    return originPrice * 0.8
+  },
+  back(originPrice) {
+    if (originPrice >= 200) {
+      return originPrice - 50
+    }
+    return originPrice
+  },
+  fresh(originPrice) {
+    return originPrice * 0.5
+  }
+}
+
+function askPrice(tag, originPrice) {
+  return priceProcessor[tag](originPrice)
+}
+
+priceProcessor.newUser = function (originPrice) {
+  if (originPrice >= 100) {
+    return originPrice - 50
+  }
+  return originPrice
+}
+
+// 状态模式 + 迭代器模式 (Promise / Generator)
+
+// 观察者模式 (Vue 响应式原理 Dep + Watcher)
+class Publisher {
+  constructor() {
+    this.subs = []
+  }
+
+  add(sub) {
+    this.subs.push(sub)
+    return this
+  }
+
+  notify() {
+    this.subs.forEach(sub => sub.update(this))
+  }
+}
+
+class PrdPublisher extends Publisher {
+  constructor() {
+    super()
+    this.prdState = null
+  }
+
+  getState() {
+    return this.prdState
+  }
+
+  setState(state) {
+    this.prdState = state
+    this.notify()
+  }
+}
+
+class Subscriber {
+  constructor() {
+    console.log('subscriber created')
+  }
+  update() {
+    console.log('subscriber updated')
+  }
+}
+
+class DeveloperSubscriber extends Subscriber {
+  constructor() {
+    super()
+    this.prdState = null
+  }
+
+  update(publisher) {
+    this.prdState = publisher.getState()
+    this.work()
+  }
+
+  work() {
+    let prd = this.prdState
+    console.log('work with' + prd)
+  }
+}
+
+let A = new DeveloperSubscriber()
+let B = new DeveloperSubscriber()
+let C = new DeveloperSubscriber()
+
+let publisher = new PrdPublisher()
+
+publisher.add(A).add(B).add(C)
+
+publisher.setState('some prd ...')
+
+// 发布订阅模式 EventEmitter
+
+/**
+ *  被观察者 ---> 通知变化 ---> 观察者
+ *  被观察者 <--- 订阅事件 <--- 观察者
+ */
+
+/**
+ *  发布者 ---> 通知变化 ---> 事件中心 ---> 通知变化 ---> 订阅者
+ *  发布者 --- 事件中心 <--- 订阅事件 <--- 订阅者
+ */
+
 

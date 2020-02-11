@@ -379,6 +379,42 @@ function postOrder(root) {
   return res.reverse()
 }
 
+// 手写 Promise.all
+Promise._all = promises => {
+  let { length } = promises
+  let count = 0
+  let res = []
+
+  return new Promise((resolve, reject) => {
+    promises.forEach((promise, index) => {
+      Promise.resolve(promise)
+        .then(item => {
+          res[index] = item
+          count++
+          if (count == length) {
+            resolve(res)
+          }
+        })
+        .catch(err => reject(err))
+    })
+  })
+}
+
+// 手写 Promise.race
+Promise._race = promises => new Promise((resolve, reject) => {
+  promises.forEach(promise => {
+    Promise.resolve(promise).then(resolve, reject)
+  })
+})
+
+// 手写 Promise.finally
+Promise.prototype.finally = function (callback) {
+  return this.then(
+    res => Promise.resolve(callback()).then(() => res),
+    err => Promise.resolve(callback()).then(() => { throw err })
+  )
+}
+
 // 手写 EventEmitter
 class EventEmitter {
   constructor() {
@@ -439,41 +475,3 @@ function compose(middlewares) {
   }
 }
 
-// 手写 Promise.all
-Promise._all = promises => {
-  let { length } = promises
-  let count = 0
-  let res = []
-
-  return new Promise((resolve, reject) => {
-    promises.forEach((promise, index) => {
-      Promise.resolve(promise)
-        .then(item => {
-          res[index] = item
-          count++
-          if (count == length) {
-            resolve(res)
-          }
-        })
-        .catch(err => reject(err))
-    })
-  })
-}
-
-// 手写 Promise.race
-Promise._race = promises => new Promise((resolve, reject) => {
-  promises.forEach(promise => {
-    Promise.resolve(promise).then(resolve, reject)
-  })
-})
-
-// 手写 Promise.finally
-Promise.prototype.finally = function (callback) {
-  return this.then(
-    res => Promise.resolve(callback()).then(() => res),
-    err => Promise.resolve(callback()).then(() => { throw err })
-  )
-}
-
-// monad
-// functor
