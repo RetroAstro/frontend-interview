@@ -44,6 +44,8 @@
 
 [ScriptOJ](http://scriptoj.mangojuice.top)
 
+[小程序技术原理分析](https://zhaomenghuan.js.org/blog/wechat-miniprogram-principle-analysis.html)
+
 极客时间
 
 * 数据结构与算法
