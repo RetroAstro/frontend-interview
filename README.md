@@ -44,6 +44,8 @@
 
 [ScriptOJ](http://scriptoj.mangojuice.top)
 
+[小程序开发指南](https://developers.weixin.qq.com/ebook?action=get_post_info&token=935589521&volumn=1&lang=zh_CN&book=miniprogram&docid=0008aeea9a8978ab0086a685851c0a)
+
 [小程序技术原理分析](https://zhaomenghuan.js.org/blog/wechat-miniprogram-principle-analysis.html)
 
 极客时间
