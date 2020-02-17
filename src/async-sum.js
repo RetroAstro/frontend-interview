@@ -23,8 +23,8 @@ async function sum(...args) {
 
     let temp = []
 
-    for (let i = 0; i <= arr.length - 2; i += 2) {
-      temp.push(arr.slice(i, i + 2))
+    for (let i = arr.length; i - 2 >= 0; i -= 2) {
+      temp.push(arr.slice(i - 2, i))
     }
 
     let res = await Promise.all(
