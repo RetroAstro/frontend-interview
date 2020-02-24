@@ -395,7 +395,7 @@ Promise._all = promises => {
             resolve(res)
           }
         })
-        .catch(err => reject(err))
+        .catch(reject)
     })
   })
 }
